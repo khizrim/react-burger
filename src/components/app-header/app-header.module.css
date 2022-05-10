@@ -1,0 +1,57 @@
+.container {
+  composes: container from '../app/app.module.css';
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  justify-items: flex-start;
+  align-items: center;
+}
+
+.header {
+  composes: pt-3 pb-3 from global;
+}
+
+.menu_container {
+  display: flex;
+  gap: 8px;
+}
+
+.menu_button {
+  composes: pt-4 pb-4 pl-5 pr-5 text from global;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-inactive-color);
+  font-weight: 400;
+  text-decoration: none;
+}
+
+.menu_button span {
+  margin-left: 8px;
+}
+
+.menu_button:hover {
+  color: var(--text-primary-color);
+  transition: var(--common-transition);
+}
+
+.menu_button_active {
+  composes: menu_button;
+  color: var(--text-primary-color);
+}
+
+.logo_container {
+  justify-self: center;
+}
+
+.logo_link {
+  display: flex;
+}
+
+.logo_link:hover svg {
+  transform: scale(1.05);
+  transition: var(--common-transition);
+}
+
+.profile_container {
+  justify-self: flex-end;
+}
