@@ -1,4 +1,5 @@
 import React from 'react';
+
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import IngredientCard from '../ingredient-card/ingredient-card';
@@ -57,6 +58,6 @@ type IngredientData = {
   __v?: number;
 };
 
-type IngredietType = { type: string; name: string };
+type IngredietType = { name: string; type: string };
 
 export default BurgerIngredients;

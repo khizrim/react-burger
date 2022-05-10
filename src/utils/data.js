@@ -1,4 +1,19 @@
-export const data = [
+const types = [
+  {
+    name: 'Булки',
+    type: 'bun'
+  },
+  {
+    name: 'Соусы',
+    type: 'sauce'
+  },
+  {
+    name: 'Начинки',
+    type: 'main'
+  }
+];
+
+const data = [
   {
     _id: '60666c42cc7b410027a1a9b1',
     name: 'Краторная булка N-200i',
@@ -211,17 +226,4 @@ export const data = [
   }
 ];
 
-export const types = [
-  {
-    type: 'bun',
-    name: 'Булки'
-  },
-  {
-    type: 'sauce',
-    name: 'Соусы'
-  },
-  {
-    type: 'main',
-    name: 'Начинки'
-  }
-];
+export { types, data };

@@ -7,13 +7,13 @@ import styles from './ingredient-card.module.css';
 const IngredientCard = ({ _id, image, price, name }: Card) => {
   return (
     <li key={_id} className={styles.ingredient}>
-      <Counter count={1} size="default" />
       <img src={image} alt={name} />
       <div className={styles.price_container}>
         <p className={styles.price}>{price}</p>
         <CurrencyIcon type="primary" />
       </div>
       <h3 className={styles.name}>{name}</h3>
+      <Counter count={1} size="default" />
     </li>
   );
 };
