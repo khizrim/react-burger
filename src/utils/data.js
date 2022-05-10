@@ -210,3 +210,18 @@ export const data = [
     __v: 0
   }
 ];
+
+export const types = [
+  {
+    type: 'bun',
+    name: 'Булки'
+  },
+  {
+    type: 'sauce',
+    name: 'Соусы'
+  },
+  {
+    type: 'main',
+    name: 'Начинки'
+  }
+];
