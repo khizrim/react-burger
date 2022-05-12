@@ -6,23 +6,32 @@ import IngredientCard from '../ingredient-card/ingredient-card';
 
 import styles from './burger-ingredients.module.css';
 
-const BurgerIngredients = ({ data, types }: { data: IngredientData[]; types: IngredietType[] }) => {
+const BurgerIngredients = ({
+  data,
+  types
+}: {
+  data: IngredientData[];
+  types: IngredientType[];
+}) => {
   const [current, setCurrent] = React.useState('bun');
 
   const renderTabs = (name: string, type: string) => {
     return (
-      <Tab value={type} active={current === type} onClick={setCurrent}>
+      <Tab key={type} value={type} active={current === type} onClick={setCurrent}>
         {name}
       </Tab>
     );
   };
 
-  const renderIngredients = (name: string, type: string) => {
+  const renderIngredients = (name: string, type: string, index: number) => {
     return (
-      <li className={styles.type}>
+      <li key={index} className={styles.type}>
         <h2 className={styles.type_name}>{name}</h2>
         <ul className={styles.list}>
-          {data.map((item: IngredientData) => item.type === type && <IngredientCard {...item} />)}
+          {data.map(
+            (item: IngredientData) =>
+              item.type === type && <IngredientCard key={item._id} {...item} />
+          )}
         </ul>
       </li>
     );
@@ -33,10 +42,12 @@ const BurgerIngredients = ({ data, types }: { data: IngredientData[]; types: Ing
       <div className={styles.container}>
         <h1 className={styles.title}>Соберите бургер</h1>
         <div className={styles.tabs}>
-          {types.map((item: IngredietType) => renderTabs(item.name, item.type))}
+          {types.map((item: IngredientType) => renderTabs(item.name, item.type))}
         </div>
         <ul className={styles.types}>
-          {types.map((item: IngredietType) => renderIngredients(item.name, item.type))}
+          {types.map((item: IngredientType, index) =>
+            renderIngredients(item.name, item.type, index)
+          )}
         </ul>
       </div>
     </section>
@@ -58,6 +69,6 @@ type IngredientData = {
   __v?: number;
 };
 
-type IngredietType = { name: string; type: string };
+type IngredientType = { name: string; type: string };
 
 export default BurgerIngredients;
