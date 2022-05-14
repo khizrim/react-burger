@@ -1,9 +1,11 @@
 .container {
-  composes: container from '../app/app.module.css';
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-items: flex-start;
   align-items: center;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .header {
