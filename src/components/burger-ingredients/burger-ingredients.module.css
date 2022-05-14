@@ -31,7 +31,7 @@
   overflow-y: auto;
   list-style: none;
   padding: 0;
-  margin: 0;
+  margin: 40px 0 0;
 }
 
 .types::-webkit-scrollbar {
@@ -39,7 +39,7 @@
 }
 
 .types::-webkit-scrollbar-track {
-  background: var(--background=element);
+  background: var(--background-element);
 }
 
 .types::-webkit-scrollbar-thumb {
@@ -48,6 +48,10 @@
 
 .type {
   composes: pt-10 from global;
+}
+
+.type:first-child {
+  padding: 0;
 }
 
 .type_name {
