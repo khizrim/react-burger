@@ -21,7 +21,7 @@ const BurgerConstructor = ({ data }: { data: IngredientData[] }) => {
       <div className={styles.item_locked}>
         <ConstructorElement
           type={type}
-          text={item.name}
+          text={`${item.name} ${type === 'top' ? '(верх)' : '(низ)'}`}
           price={item.price}
           thumbnail={item.image}
           isLocked
