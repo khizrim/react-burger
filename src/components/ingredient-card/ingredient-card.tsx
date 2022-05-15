@@ -2,9 +2,11 @@ import React from 'react';
 
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
+import { IngredientData } from '../../utils/types';
+
 import styles from './ingredient-card.module.css';
 
-const IngredientCard = ({ _id, image, price, name }: Card) => {
+const IngredientCard = ({ _id, image, price, name }: IngredientData) => {
   return (
     <li key={_id} className={styles.ingredient}>
       <img src={image} alt={name} />
@@ -16,13 +18,6 @@ const IngredientCard = ({ _id, image, price, name }: Card) => {
       <Counter count={1} size="default" />
     </li>
   );
-};
-
-type Card = {
-  _id: string;
-  image: string;
-  price: number;
-  name: string;
 };
 
 export default IngredientCard;

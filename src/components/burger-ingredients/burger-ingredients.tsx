@@ -3,6 +3,7 @@ import React from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import IngredientCard from '../ingredient-card/ingredient-card';
+import { IngredientData, IngredientType } from '../../utils/types';
 
 import styles from './burger-ingredients.module.css';
 
@@ -53,22 +54,5 @@ const BurgerIngredients = ({
     </section>
   );
 };
-
-type IngredientData = {
-  _id: string;
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  __v?: number;
-};
-
-type IngredientType = { name: string; type: string };
 
 export default BurgerIngredients;
