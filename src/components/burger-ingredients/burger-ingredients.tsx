@@ -1,3 +1,6 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import React from 'react';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -6,6 +9,12 @@ import IngredientCard from '../ingredient-card/ingredient-card';
 import { IngredientData, IngredientType } from '../../utils/types';
 
 import styles from './burger-ingredients.module.css';
+
+declare module 'react' {
+  interface FunctionComponent<P = {}> {
+    (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
+  }
+}
 
 const BurgerIngredients = ({
   data,

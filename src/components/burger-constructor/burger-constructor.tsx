@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/ban-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from 'react';
 
 import {
@@ -10,6 +12,12 @@ import {
 import { IngredientData } from '../../utils/types';
 
 import styles from './burger-constructor.module.css';
+
+declare module 'react' {
+  interface FunctionComponent<P = {}> {
+    (props: PropsWithChildren<P>, context?: any): ReactElement<any, any> | null;
+  }
+}
 
 const BurgerConstructor = ({ data }: { data: IngredientData[] }) => {
   const buns = data.filter((item) => item.type === 'bun');
