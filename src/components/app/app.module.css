@@ -15,3 +15,16 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
 }
+
+.error {
+  composes: container;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 350px;
+}
+
+.error_text {
+  composes: ml-1 from global;
+  color: var(--colors-interface-error);
+}
