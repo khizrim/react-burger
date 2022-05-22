@@ -12,11 +12,11 @@ function App() {
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState('');
 
-  const url = 'https://norma.nomoreparties.space/api/ingredients';
+  const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
   React.useEffect(() => {
     setIsLoading(true);
-    fetch(url)
+    fetch(API_URL)
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
       .then(({ data }) => setIngredients(data))
       .catch((err) => setError(String(err)))
