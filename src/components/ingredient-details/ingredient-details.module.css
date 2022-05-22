@@ -1,0 +1,38 @@
+.ingredient_details {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  gap: 16px;
+}
+
+.content {
+  display: grid;
+  justify-items: center;
+  gap: 32px;
+}
+
+.title {
+  composes: text text_type_main-medium from global;
+  color: var(--text-primary-color);
+}
+
+.list {
+  composes: text text_type_main-default from global;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  color: var(--text-inactive-color);
+  gap: 20px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.property {
+  margin: 0 0 8px;
+}

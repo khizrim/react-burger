@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import { useState } from 'react';
 
 import {
   DragIcon,
@@ -8,6 +8,9 @@ import {
   Button,
   CurrencyIcon
 } from '@ya.praktikum/react-developer-burger-ui-components';
+
+import OrderDetails from '../order-details/order-details';
+import Modal from '../modal/modal';
 
 import { IngredientData } from '../../utils/types';
 
@@ -20,9 +23,15 @@ declare module 'react' {
 }
 
 const BurgerConstructor = ({ data }: { data: IngredientData[] }) => {
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
   const buns = data.filter((item) => item.type === 'bun');
   const sauce = data.filter((item) => item.type === 'sauce');
   const main = data.filter((item) => item.type === 'main');
+
+  const toggleModal = () => {
+    setIsModalOpened(!isModalOpened);
+  };
 
   const ingredient = (item: IngredientData, type?: 'top' | 'bottom') =>
     type ? (
@@ -63,11 +72,16 @@ const BurgerConstructor = ({ data }: { data: IngredientData[] }) => {
             <span className={styles.total_text}>610</span>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="large">
+          <Button type="primary" size="large" onClick={toggleModal}>
             Оформить заказ
           </Button>
         </div>
       </div>
+      {isModalOpened && (
+        <Modal onClose={toggleModal}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   );
 };
