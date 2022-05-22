@@ -1,0 +1,74 @@
+.container {
+  composes: container from '../app/app.module.css';
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  max-height: calc(100vh - 228px);
+}
+
+.burger_constructor {
+  composes: pt-25 pb-10 pl-4 from global;
+}
+
+.items {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: calc(100% - 568px);
+}
+
+.list {
+  composes: mt-4 mb-4 from global;
+  display: grid;
+  list-style: none;
+  padding: 0;
+  width: 100%;
+  gap: 16px;
+  overflow-y: scroll;
+}
+
+.list::-webkit-scrollbar {
+  width: 8px;
+}
+
+.list::-webkit-scrollbar-track {
+  background: var(--background-element);
+}
+
+.list::-webkit-scrollbar-thumb {
+  background-color: var(--text-inactive-color);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.item_locked {
+  composes: item;
+  composes: pl-8 pr-4 from global;
+}
+
+.total {
+  composes: mt-10 pr-4 from global;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.sum {
+  composes: mr-10 from global;
+  display: flex;
+  align-items: center;
+}
+
+.sum svg {
+  margin-left: 9px;
+  width: 33px;
+  height: 33px;
+}
+
+.total_text {
+  composes: text text_type_digits-medium from global;
+}

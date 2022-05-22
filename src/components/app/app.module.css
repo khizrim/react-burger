@@ -1,0 +1,17 @@
+.app {
+  min-height: 100vh;
+  background-color: var(--background-alt);
+}
+
+.container {
+  max-width: 1240px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.main {
+  composes: container;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
