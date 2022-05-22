@@ -16,14 +16,23 @@ declare module 'react' {
   }
 }
 
-const BurgerIngredients = ({
-  data,
-  types
-}: {
-  data: IngredientData[];
-  types: IngredientType[];
-}) => {
+const BurgerIngredients = ({ data }: { data: IngredientData[] }) => {
   const [current, setCurrent] = React.useState('bun');
+
+  const types = [
+    {
+      name: 'Булки',
+      type: 'bun'
+    },
+    {
+      name: 'Соусы',
+      type: 'sauce'
+    },
+    {
+      name: 'Начинки',
+      type: 'main'
+    }
+  ];
 
   const renderTabs = (name: string, type: string) => {
     return (

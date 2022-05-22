@@ -4,8 +4,6 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 
-import { types } from '../../utils/data';
-
 import styles from './app.module.css';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
 
@@ -37,7 +35,7 @@ function App() {
       <main className={styles.main}>
         {ingredients.length ? (
           <>
-            <BurgerIngredients data={ingredients} types={types} />
+            <BurgerIngredients data={ingredients} />
             <BurgerConstructor data={ingredients} />
           </>
         ) : (
