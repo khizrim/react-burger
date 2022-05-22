@@ -3,16 +3,16 @@ import React from 'react';
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
+import LoadingSpinner from '../loading-spinner/loading-spinner';
+
+import { API_URL } from '../../utils/constants';
 
 import styles from './app.module.css';
-import LoadingSpinner from '../loading-spinner/loading-spinner';
 
 function App() {
   const [ingredients, setIngredients] = React.useState([]);
   const [isLoading, setIsLoading] = React.useState(false);
   const [error, setError] = React.useState('');
-
-  const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
   React.useEffect(() => {
     setIsLoading(true);

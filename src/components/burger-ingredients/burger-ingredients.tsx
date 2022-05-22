@@ -1,11 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import React from 'react';
+import { useState } from 'react';
 
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import IngredientCard from '../ingredient-card/ingredient-card';
+import IngredientDetails from '../ingredient-details/ingredient-details';
+import Modal from '../modal/modal';
+
+import { INGREDIENT_TYPES } from '../../utils/constants';
 import { IngredientData, IngredientType } from '../../utils/types';
 
 import styles from './burger-ingredients.module.css';
@@ -17,26 +20,23 @@ declare module 'react' {
 }
 
 const BurgerIngredients = ({ data }: { data: IngredientData[] }) => {
-  const [current, setCurrent] = React.useState('bun');
+  const [currentTab, setCurrentTab] = useState('bun');
+  const [currentIngredient, setCurrentIngredient] = useState<IngredientData | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const types = [
-    {
-      name: 'Булки',
-      type: 'bun'
-    },
-    {
-      name: 'Соусы',
-      type: 'sauce'
-    },
-    {
-      name: 'Начинки',
-      type: 'main'
-    }
-  ];
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setCurrentIngredient(null);
+  };
+
+  const openModal = (item: IngredientData) => {
+    setIsModalOpen(true);
+    setCurrentIngredient({ ...item });
+  };
 
   const renderTabs = (name: string, type: string) => {
     return (
-      <Tab key={type} value={type} active={current === type} onClick={setCurrent}>
+      <Tab key={type} value={type} active={currentTab === type} onClick={setCurrentTab}>
         {name}
       </Tab>
     );
@@ -49,7 +49,9 @@ const BurgerIngredients = ({ data }: { data: IngredientData[] }) => {
         <ul className={styles.list}>
           {data.map(
             (item: IngredientData) =>
-              item.type === type && <IngredientCard key={item._id} {...item} />
+              item.type === type && (
+                <IngredientCard key={item._id} data={item} openModal={openModal} />
+              )
           )}
         </ul>
       </li>
@@ -61,13 +63,18 @@ const BurgerIngredients = ({ data }: { data: IngredientData[] }) => {
       <div className={styles.container}>
         <h1 className={styles.title}>Соберите бургер</h1>
         <div className={styles.tabs}>
-          {types.map((item: IngredientType) => renderTabs(item.name, item.type))}
+          {INGREDIENT_TYPES.map((item: IngredientType) => renderTabs(item.name, item.type))}
         </div>
         <ul className={styles.types}>
-          {types.map((item: IngredientType, index) =>
+          {INGREDIENT_TYPES.map((item: IngredientType, index) =>
             renderIngredients(item.name, item.type, index)
           )}
         </ul>
+        {isModalOpen && currentIngredient && (
+          <Modal title={'Детали ингредиентов'} onClose={closeModal}>
+            <IngredientDetails {...currentIngredient} />
+          </Modal>
+        )}
       </div>
     </section>
   );
