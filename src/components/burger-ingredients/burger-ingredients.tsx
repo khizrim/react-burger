@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import IngredientCard from '../ingredient-card/ingredient-card';
+import IngredientsList from '../ingredients-list/ingredients-list';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import Modal from '../modal/modal';
 
@@ -24,14 +23,9 @@ const BurgerIngredients = ({ data }: { data: IngredientData[] }) => {
   const [currentIngredient, setCurrentIngredient] = useState<IngredientData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setCurrentIngredient(null);
-  };
-
-  const openModal = (item: IngredientData) => {
-    setIsModalOpen(true);
-    setCurrentIngredient({ ...item });
+  const toggleModal = (item?: IngredientData) => {
+    setIsModalOpen(!isModalOpen);
+    setCurrentIngredient(item ? { ...item } : null);
   };
 
   const renderTabs = (name: string, type: string) => {
@@ -39,22 +33,6 @@ const BurgerIngredients = ({ data }: { data: IngredientData[] }) => {
       <Tab key={type} value={type} active={currentTab === type} onClick={setCurrentTab}>
         {name}
       </Tab>
-    );
-  };
-
-  const renderIngredients = (name: string, type: string, index: number) => {
-    return (
-      <li key={index} className={styles.type}>
-        <h2 className={styles.type_name}>{name}</h2>
-        <ul className={styles.list}>
-          {data.map(
-            (item: IngredientData) =>
-              item.type === type && (
-                <IngredientCard key={item._id} data={item} openModal={openModal} />
-              )
-          )}
-        </ul>
-      </li>
     );
   };
 
@@ -67,11 +45,11 @@ const BurgerIngredients = ({ data }: { data: IngredientData[] }) => {
         </div>
         <ul className={styles.types}>
           {INGREDIENT_TYPES.map((item: IngredientType, index) =>
-            renderIngredients(item.name, item.type, index)
+            IngredientsList(data, item.name, item.type, index, toggleModal)
           )}
         </ul>
         {isModalOpen && currentIngredient && (
-          <Modal title={'Детали ингредиентов'} onClose={closeModal}>
+          <Modal title={'Детали ингредиентов'} onClose={toggleModal}>
             <IngredientDetails {...currentIngredient} />
           </Modal>
         )}

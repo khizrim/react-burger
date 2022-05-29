@@ -6,13 +6,13 @@ import styles from './ingredient-card.module.css';
 
 const IngredientCard = ({
   data,
-  openModal
+  toggleModal
 }: {
   data: IngredientData;
-  openModal: (data: IngredientData) => void;
+  toggleModal: (data: IngredientData) => void;
 }) => {
   return (
-    <li key={data._id} onClick={() => openModal(data)} className={styles.ingredient}>
+    <li key={data._id} onClick={() => toggleModal(data)} className={styles.ingredient}>
       <img src={data.image} alt={data.name} />
       <div className={styles.price_container}>
         <p className={styles.price}>{data.price}</p>
