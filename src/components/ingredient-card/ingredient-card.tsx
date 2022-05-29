@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { IngredientData } from '../../utils/types';

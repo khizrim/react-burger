@@ -1,6 +1,12 @@
 .ingredient {
   text-align: center;
   position: relative;
+  cursor: pointer;
+}
+
+.ingredient:hover img {
+  transform: scale(1.1);
+  transition: var(--common-transition);
 }
 
 .price_container {

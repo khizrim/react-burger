@@ -1,5 +1,3 @@
-import React from 'react';
-
 import checkIcon from '../../images/done.png';
 
 import styles from './order-details.module.css';

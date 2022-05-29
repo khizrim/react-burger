@@ -1,5 +1,3 @@
-import React from 'react';
-
 import { IngredientData } from '../../utils/types';
 
 import styles from './ingredient-details.module.css';

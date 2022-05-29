@@ -1,4 +1,4 @@
-import React from 'react';
+import { useEffect, useState } from 'react';
 
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
@@ -10,11 +10,11 @@ import { API_URL } from '../../utils/constants';
 import styles from './app.module.css';
 
 function App() {
-  const [ingredients, setIngredients] = React.useState([]);
-  const [isLoading, setIsLoading] = React.useState(false);
-  const [error, setError] = React.useState('');
+  const [ingredients, setIngredients] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
 
-  React.useEffect(() => {
+  useEffect(() => {
     setIsLoading(true);
     fetch(API_URL)
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
