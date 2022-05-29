@@ -1,5 +1,7 @@
 const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
 
+const ESC_CODE = 27;
+
 const INGREDIENT_TYPES = [
   {
     name: 'Булки',
@@ -15,4 +17,4 @@ const INGREDIENT_TYPES = [
   }
 ];
 
-export { API_URL, INGREDIENT_TYPES };
+export { API_URL, ESC_CODE, INGREDIENT_TYPES };

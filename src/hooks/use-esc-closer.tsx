@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 
+import { ESC_CODE } from '../utils/constants';
+
 const useEscCloser = (onClose: () => void) => {
   useEffect(() => {
     function handleEscClose(e: { keyCode: number }) {
-      if (e.keyCode === 27) {
+      if (e.keyCode === ESC_CODE) {
         onClose();
       }
     }
