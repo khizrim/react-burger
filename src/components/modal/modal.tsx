@@ -24,7 +24,7 @@ const Modal = ({
   useOverlayCloser(onClose);
 
   return ReactDOM.createPortal(
-    <ModalOverlay>
+    <>
       <section className={styles.modal}>
         <div className={styles.header}>
           <h2 className={styles.title}>{title}</h2>
@@ -34,7 +34,8 @@ const Modal = ({
         </div>
         <div className={styles.content}>{children}</div>
       </section>
-    </ModalOverlay>,
+      <ModalOverlay />
+    </>,
     modalRoot
   );
 };

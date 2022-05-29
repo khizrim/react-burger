@@ -1,9 +1,7 @@
-import { ReactNode } from 'react';
-
 import styles from './modal-overlay.module.css';
 
-const ModalOverlay = ({ children }: { children: ReactNode }) => {
-  return <div className={styles.modal_overlay}>{children}</div>;
+const ModalOverlay = () => {
+  return <div className={styles.modal_overlay} />;
 };
 
 export default ModalOverlay;
