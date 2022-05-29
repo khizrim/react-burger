@@ -1,15 +1,10 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
-
-import {
-  DragIcon,
-  ConstructorElement,
-  Button,
-  CurrencyIcon
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import OrderDetails from '../order-details/order-details';
+import Ingredient from '../ingredient/ingredient';
 import Modal from '../modal/modal';
 
 import { IngredientData } from '../../utils/types';
@@ -33,39 +28,16 @@ const BurgerConstructor = ({ data }: { data: IngredientData[] }) => {
     setIsModalOpened(!isModalOpened);
   };
 
-  const ingredient = (item: IngredientData, type?: 'top' | 'bottom') =>
-    type ? (
-      <div className={styles.item_locked}>
-        <ConstructorElement
-          type={type}
-          text={`${item.name} ${type === 'top' ? '(верх)' : '(низ)'}`}
-          price={item.price}
-          thumbnail={item.image}
-          isLocked
-        />
-      </div>
-    ) : (
-      <li className={styles.item} key={item._id}>
-        <DragIcon type="primary" />
-        <ConstructorElement
-          type={type}
-          text={item.name}
-          price={item.price}
-          thumbnail={item.image}
-        />
-      </li>
-    );
-
   return (
     <section className={styles.burger_constructor}>
       <div className={styles.container}>
         <div className={styles.items}>
-          {ingredient(buns[0], 'top')}
+          {Ingredient(buns[0], 'top', true)}
           <ul className={styles.list}>
-            {sauce.map((item) => ingredient(item))}
-            {main.map((item) => ingredient(item))}
+            {sauce.map((item) => Ingredient(item))}
+            {main.map((item) => Ingredient(item))}
           </ul>
-          {ingredient(buns[0], 'bottom')}
+          {Ingredient(buns[0], 'bottom', true)}
         </div>
         <div className={styles.total}>
           <div className={styles.sum}>
