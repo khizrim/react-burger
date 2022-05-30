@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react';
+import { useState } from 'react';
+import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import {
-  DragIcon,
-  ConstructorElement,
-  Button,
-  CurrencyIcon
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import OrderDetails from '../order-details/order-details';
+import Ingredient from '../ingredient/ingredient';
+import Modal from '../modal/modal';
 
 import { IngredientData } from '../../utils/types';
 
@@ -20,54 +18,42 @@ declare module 'react' {
 }
 
 const BurgerConstructor = ({ data }: { data: IngredientData[] }) => {
+  const [isModalOpened, setIsModalOpened] = useState(false);
+
   const buns = data.filter((item) => item.type === 'bun');
   const sauce = data.filter((item) => item.type === 'sauce');
   const main = data.filter((item) => item.type === 'main');
 
-  const ingredient = (item: IngredientData, type?: 'top' | 'bottom') =>
-    type ? (
-      <div className={styles.item_locked}>
-        <ConstructorElement
-          type={type}
-          text={`${item.name} ${type === 'top' ? '(верх)' : '(низ)'}`}
-          price={item.price}
-          thumbnail={item.image}
-          isLocked
-        />
-      </div>
-    ) : (
-      <li className={styles.item} key={item._id}>
-        <DragIcon type="primary" />
-        <ConstructorElement
-          type={type}
-          text={item.name}
-          price={item.price}
-          thumbnail={item.image}
-        />
-      </li>
-    );
+  const toggleModal = () => {
+    setIsModalOpened(!isModalOpened);
+  };
 
   return (
     <section className={styles.burger_constructor}>
       <div className={styles.container}>
         <div className={styles.items}>
-          {ingredient(buns[0], 'top')}
+          {Ingredient(buns[0], 'top', true)}
           <ul className={styles.list}>
-            {sauce.map((item) => ingredient(item))}
-            {main.map((item) => ingredient(item))}
+            {sauce.map((item) => Ingredient(item))}
+            {main.map((item) => Ingredient(item))}
           </ul>
-          {ingredient(buns[0], 'bottom')}
+          {Ingredient(buns[0], 'bottom', true)}
         </div>
         <div className={styles.total}>
           <div className={styles.sum}>
             <span className={styles.total_text}>610</span>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="large">
+          <Button type="primary" size="large" onClick={toggleModal}>
             Оформить заказ
           </Button>
         </div>
       </div>
+      {isModalOpened && (
+        <Modal onClose={toggleModal}>
+          <OrderDetails />
+        </Modal>
+      )}
     </section>
   );
 };

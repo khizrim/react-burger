@@ -39,17 +39,6 @@
   background-color: var(--text-inactive-color);
 }
 
-.item {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.item_locked {
-  composes: item;
-  composes: pl-8 pr-4 from global;
-}
-
 .total {
   composes: mt-10 pr-4 from global;
   display: flex;

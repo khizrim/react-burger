@@ -1,0 +1,23 @@
+@keyframes spinner {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.loading_spinner {
+  width: 24px;
+  height: 24px;
+  border: 6px solid var(--text-inactive-color);
+  border-top: 6px solid var(--text-primary-color);
+  border-radius: 50%;
+  animation: spinner .75s linear infinite;
+}
+
+.spinner_container {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  height: 350px;
+}
