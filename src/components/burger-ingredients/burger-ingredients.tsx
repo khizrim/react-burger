@@ -19,7 +19,7 @@ declare module 'react' {
   }
 }
 
-const BurgerIngredients = ({ data }: { data: IngredientData[] }) => {
+const BurgerIngredients = () => {
   const [currentIngredient, setCurrentIngredient] = useState<IngredientData | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -36,11 +36,7 @@ const BurgerIngredients = ({ data }: { data: IngredientData[] }) => {
           <Tabs tabsList={INGREDIENT_TYPES} />
         </div>
         <ul className={styles.types}>
-          <IngredientsList
-            ingredientsList={INGREDIENT_TYPES}
-            data={data}
-            toggleModal={toggleModal}
-          />
+          <IngredientsList ingredientsList={INGREDIENT_TYPES} toggleModal={toggleModal} />
         </ul>
         {isModalOpen && currentIngredient && (
           <Modal title={'Детали ингредиентов'} onClose={toggleModal}>

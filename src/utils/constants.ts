@@ -1,4 +1,4 @@
-const API_URL = 'https://norma.nomoreparties.space/api/ingredients';
+const API_URL = 'https://norma.nomoreparties.space/api';
 
 const ESC_CODE = 27;
 

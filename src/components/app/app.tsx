@@ -5,6 +5,7 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
 
+import IngredientsContext from '../../services/ingredients-context';
 import { API_URL } from '../../utils/constants';
 
 import styles from './app.module.css';
@@ -16,7 +17,7 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(API_URL)
+    fetch(`${API_URL}/ingredients`)
       .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
       .then(({ data }) => setIngredients(data))
       .catch((err) => setError(String(err)))
@@ -33,14 +34,16 @@ function App() {
         </div>
       )}
       <main className={styles.main}>
-        {ingredients.length ? (
-          <>
-            <BurgerIngredients data={ingredients} />
-            <BurgerConstructor data={ingredients} />
-          </>
-        ) : (
-          ''
-        )}
+        <IngredientsContext.Provider value={ingredients}>
+          {ingredients.length ? (
+            <>
+              <BurgerIngredients />
+              <BurgerConstructor />
+            </>
+          ) : (
+            ''
+          )}
+        </IngredientsContext.Provider>
       </main>
     </div>
   );

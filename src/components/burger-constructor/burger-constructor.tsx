@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import OrderDetails from '../order-details/order-details';
 import Ingredient from '../ingredient/ingredient';
 import Modal from '../modal/modal';
 
-import { IngredientData } from '../../utils/types';
-
 import styles from './burger-constructor.module.css';
+import IngredientsContext from '../../services/ingredients-context';
 
 declare module 'react' {
   interface FunctionComponent<P = {}> {
@@ -17,12 +16,13 @@ declare module 'react' {
   }
 }
 
-const BurgerConstructor = ({ data }: { data: IngredientData[] }) => {
+const BurgerConstructor = () => {
+  const ingredients = useContext(IngredientsContext);
   const [isModalOpened, setIsModalOpened] = useState(false);
 
-  const buns = data.filter((item) => item.type === 'bun');
-  const sauce = data.filter((item) => item.type === 'sauce');
-  const main = data.filter((item) => item.type === 'main');
+  const buns = ingredients.filter((item) => item.type === 'bun');
+  const sauce = ingredients.filter((item) => item.type === 'sauce');
+  const main = ingredients.filter((item) => item.type === 'main');
 
   const toggleModal = () => {
     setIsModalOpened(!isModalOpened);
