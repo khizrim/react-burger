@@ -1,4 +1,4 @@
-type IngredientData = {
+type IngredientDataType = {
   _id: string;
   name: string;
   type?: string;
@@ -15,4 +15,9 @@ type IngredientData = {
 
 type IngredientType = { name: string; type: string };
 
-export type { IngredientData, IngredientType };
+type TabsType = {
+  currentTab: string;
+  handleTabSwitch: (value: string) => void;
+};
+
+export type { IngredientDataType, IngredientType, TabsType };

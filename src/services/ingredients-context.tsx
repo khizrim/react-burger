@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 
-import { IngredientData } from '../utils/types';
+import { IngredientDataType } from '../utils/types';
 
-const IngredientsContext = createContext<IngredientData[] | []>([]);
+const IngredientsContext = createContext<IngredientDataType[] | []>([]);
 
 export default IngredientsContext;

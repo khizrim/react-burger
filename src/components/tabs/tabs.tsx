@@ -1,16 +1,19 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import { IngredientType } from '../../utils/types';
+import { INGREDIENT_TYPES } from '../../utils/constants';
 
-const Tabs = ({ tabsList }: { tabsList: IngredientType[] }) => {
-  const [currentTab, setCurrentTab] = useState('bun');
+import TabsContext from '../../services/tabs-context';
+
+const Tabs = () => {
+  const { currentTab, handleTabSwitch } = useContext(TabsContext);
 
   return (
     <>
-      {tabsList.map(({ name, type }: IngredientType) => {
+      {INGREDIENT_TYPES.map(({ name, type }: IngredientType) => {
         return (
-          <Tab key={type} value={type} active={currentTab === type} onClick={setCurrentTab}>
+          <Tab key={type} value={type} active={currentTab === type} onClick={handleTabSwitch}>
             {name}
           </Tab>
         );

@@ -1,10 +1,10 @@
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { IngredientData } from '../../utils/types';
+import { IngredientDataType } from '../../utils/types';
 
 import styles from './ingredient.module.css';
 
-const Ingredient = (item: IngredientData, type?: 'top' | 'bottom', isLocked?: boolean) => {
+const Ingredient = (item: IngredientDataType, type?: 'top' | 'bottom', isLocked?: boolean) => {
   const postfix = type === 'top' ? ' (верх)' : type === 'bottom' ? ' (низ)' : '';
 
   return (

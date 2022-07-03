@@ -1,8 +1,8 @@
-import { IngredientData } from '../../utils/types';
+import { IngredientDataType } from '../../utils/types';
 
 import styles from './ingredient-details.module.css';
 
-const IngredientDetails = (data: IngredientData) => {
+const IngredientDetails = (data: IngredientDataType) => {
   return (
     <div className={styles.ingredient_details}>
       <img src={data.image_large} alt={data.name} />
