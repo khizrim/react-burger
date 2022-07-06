@@ -20,4 +20,12 @@ type TabsType = {
   handleTabSwitch: (value: string) => void;
 };
 
-export type { IngredientDataType, IngredientType, TabsType };
+type OrderType = {
+  succes: boolean;
+  name: string;
+  order: {
+    number: number;
+  };
+};
+
+export type { IngredientDataType, IngredientType, TabsType, OrderType };

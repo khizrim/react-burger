@@ -4,9 +4,9 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
-import IngredientsContext from '../../services/ingredients-context';
 
-import { API_URL } from '../../utils/constants';
+import IngredientsContext from '../../services/ingredients-context';
+import { getIngredients } from '../../utils/api';
 
 import styles from './app.module.css';
 
@@ -17,11 +17,16 @@ function App() {
 
   useEffect(() => {
     setIsLoading(true);
-    fetch(`${API_URL}/ingredients`)
-      .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
-      .then(({ data }) => setIngredients(data))
-      .catch((err) => setError(String(err)))
-      .finally(() => setIsLoading(false));
+    (async () => {
+      try {
+        const res = await getIngredients();
+        setIngredients(res.data);
+      } catch (err) {
+        setError(String(err));
+      } finally {
+        setIsLoading(false);
+      }
+    })();
   }, []);
 
   return (

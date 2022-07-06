@@ -1,11 +1,15 @@
+import { useContext } from 'react';
 import checkIcon from '../../images/done.png';
+import OrderContext from '../../services/order-context';
 
 import styles from './order-details.module.css';
 
 const OrderDetails = () => {
+  const { order } = useContext(OrderContext);
+
   return (
     <div className={styles.order_details}>
-      <h2 className={styles.title}>034536</h2>
+      <h2 className={styles.title}>{order.number}</h2>
       <p className={styles.subtitle}>идентификатор заказа</p>
       <img className={styles.icon} src={checkIcon} />
       <p className={styles.caption}>
