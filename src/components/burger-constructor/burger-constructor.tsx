@@ -6,9 +6,9 @@ import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-co
 import OrderDetails from '../order-details/order-details';
 import Ingredient from '../ingredient/ingredient';
 import Modal from '../modal/modal';
+import IngredientsContext from '../../services/ingredients-context';
 
 import styles from './burger-constructor.module.css';
-import IngredientsContext from '../../services/ingredients-context';
 
 declare module 'react' {
   interface FunctionComponent<P = {}> {

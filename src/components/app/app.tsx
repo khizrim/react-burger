@@ -4,8 +4,8 @@ import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
-
 import IngredientsContext from '../../services/ingredients-context';
+
 import { API_URL } from '../../utils/constants';
 
 import styles from './app.module.css';

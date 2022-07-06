@@ -4,15 +4,14 @@ import { useRef, useState } from 'react';
 
 import IngredientsList from '../ingredients-list/ingredients-list';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import Tabs from '../tabs/tabs';
 import Modal from '../modal/modal';
 
+import TabsContext from '../../services/tabs-context';
 import { INGREDIENT_TYPES } from '../../utils/constants';
 import { IngredientDataType } from '../../utils/types';
 
-import Tabs from '../tabs/tabs';
-
 import styles from './burger-ingredients.module.css';
-import TabsContext from '../../services/tabs-context';
 
 declare module 'react' {
   interface FunctionComponent<P = {}> {
