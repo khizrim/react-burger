@@ -1,9 +1,10 @@
 import { forwardRef, useContext } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 
 import IngredientCard from '../ingredient-card/ingredient-card';
 
-import { IngredientDataType, IngredientType } from '../../utils/types';
 import IngredientsContext from '../../services/ingredients-context';
+import { IngredientDataType, IngredientType } from '../../utils/types';
 
 import styles from './ingredients-list.module.css';
 
@@ -24,10 +25,10 @@ const IngredientsList = forwardRef(
 
     return (
       <>
-        {ingredientsList.map(({ name, type }, index) => {
+        {ingredientsList.map(({ name, type }) => {
           return (
             <li
-              key={index}
+              key={uuidv4()}
               className={styles.type}
               ref={type === 'bun' ? bunRef : type === 'sauce' ? sauceRef : mainRef}
             >

@@ -8,6 +8,7 @@ import Tabs from '../tabs/tabs';
 import Modal from '../modal/modal';
 
 import TabsContext from '../../services/tabs-context';
+
 import { INGREDIENT_TYPES } from '../../utils/constants';
 import { IngredientDataType } from '../../utils/types';
 
