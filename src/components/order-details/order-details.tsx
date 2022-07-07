@@ -11,7 +11,7 @@ const OrderDetails = () => {
     <div className={styles.order_details}>
       <h2 className={styles.title}>{order.number}</h2>
       <p className={styles.subtitle}>идентификатор заказа</p>
-      <img className={styles.icon} src={checkIcon} />
+      <img className={styles.icon} src={checkIcon} alt="Заказ успешно создан" />
       <p className={styles.caption}>
         Ваш заказ начали готовить
         <span className={styles.caption_secondary}>
