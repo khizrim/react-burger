@@ -1,3 +1,5 @@
+import { store } from '../services/store';
+
 type IngredientDataType = {
   _id: string;
   name: string;
@@ -28,4 +30,8 @@ type OrderType = {
   };
 };
 
-export type { IngredientDataType, IngredientType, TabsType, OrderType };
+type RootState = ReturnType<typeof store.getState>;
+
+type AppDispatch = typeof store.dispatch;
+
+export type { IngredientDataType, IngredientType, TabsType, OrderType, RootState, AppDispatch };
