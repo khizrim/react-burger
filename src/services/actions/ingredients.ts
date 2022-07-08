@@ -11,14 +11,8 @@ export function getIngredients() {
       type: GET_INGREDIENT_REQUEST
     });
 
-    fetch(API_URL)
-      .then((res) => {
-        if (res && res.ok) {
-          return res.json();
-        }
-
-        throw Error(`${res.status} ${res.statusText}`);
-      })
+    fetch(`${API_URL}/ingredients`)
+      .then((res) => (res.ok ? res.json() : Promise.reject(res.status)))
       .then(({ data }) =>
         dispatch({
           type: GET_INGREDIENT_SUCCESS,

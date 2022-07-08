@@ -1,33 +1,25 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
 import AppHeader from '../app-header/app-header';
 import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 import BurgerConstructor from '../burger-constructor/burger-constructor';
 import LoadingSpinner from '../loading-spinner/loading-spinner';
 
-import IngredientsContext from '../../services/ingredients-context';
-import { getIngredients } from '../../utils/api';
+import { getIngredients } from '../../services/actions/ingredients';
+
+import useAppSelector from '../../hooks/use-app-selector';
+import useAppDispatch from '../../hooks/use-app-dispatch';
 
 import styles from './app.module.css';
 
 function App() {
-  const [ingredients, setIngredients] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
+  const { isLoading, error } = useAppSelector((store) => store.ingredientsReducer);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    setIsLoading(true);
-    (async () => {
-      try {
-        const res = await getIngredients();
-        setIngredients(res.data);
-      } catch (err) {
-        setError(String(err));
-      } finally {
-        setIsLoading(false);
-      }
-    })();
-  }, []);
+    dispatch(getIngredients());
+  }, [dispatch]);
 
   return (
     <div className={styles.app}>
@@ -39,16 +31,8 @@ function App() {
         </div>
       )}
       <main className={styles.main}>
-        <IngredientsContext.Provider value={ingredients}>
-          {ingredients.length ? (
-            <>
-              <BurgerIngredients />
-              <BurgerConstructor />
-            </>
-          ) : (
-            ''
-          )}
-        </IngredientsContext.Provider>
+        <BurgerIngredients />
+        <BurgerConstructor />
       </main>
     </div>
   );
