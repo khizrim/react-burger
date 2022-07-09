@@ -49,14 +49,8 @@ const BurgerConstructor = () => {
       <div className={styles.container}>
         <div className={styles.items}>
           <Ingredient item={bun} type="top" />
-          <ul className={styles.list}>
-            {ingredients.length ? (
-              <></>
-            ) : (
-              <div className={styles.list_empty}>
-                <span>Перенесите соус или начинку</span>
-              </div>
-            )}
+          <ul className={ingredients.length ? styles.list : styles.list_empty}>
+            {ingredients.length ? <></> : <span>Перенесите соус или начинку</span>}
           </ul>
           <Ingredient item={bun} type="bottom" />
         </div>

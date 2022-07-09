@@ -23,18 +23,35 @@
   flex-grow: 1;
   list-style: none;
   padding: 0;
+  margin-right: 8px;
   width: 100%;
   gap: 16px;
   overflow-y: scroll;
 }
 
 .list_empty {
+  composes: list;
   display: flex;
   justify-content: center;
   align-items: center;
   border: 2px dashed var(--background-element);
   border-radius: var(--common-border-radius-s);
   color: var(--text-inactive-color);
+  overflow: hidden;
+}
+
+.list:hover {
+  margin-right: 0;
+}
+
+.list:hover::-webkit-scrollbar {
+  display: block;
+  width: 8px;
+}
+
+.list_empty:hover {
+  padding: 0;
+  overflow: hidden;
 }
 
 .list::-webkit-scrollbar {

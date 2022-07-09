@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { UIEventHandler, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 
 import IngredientsList from '../ingredients-list/ingredients-list';
 import IngredientDetails from '../ingredient-details/ingredient-details';
@@ -30,6 +30,8 @@ const BurgerIngredients = () => {
   const bunRef = useRef<HTMLUListElement>({} as HTMLUListElement);
   const sauceRef = useRef<HTMLUListElement>({} as HTMLUListElement);
   const mainRef = useRef<HTMLUListElement>({} as HTMLUListElement);
+
+  const scrollRef = useRef<HTMLUListElement>({} as HTMLUListElement);
 
   const tabsRef = useRef({ bunRef, sauceRef, mainRef });
 
@@ -70,7 +72,7 @@ const BurgerIngredients = () => {
                 <Tabs />
               </TabsContext.Provider>
             </div>
-            <ul className={styles.types} onScroll={handleScrollNav}>
+            <ul className={styles.types} ref={scrollRef} onScroll={handleScrollNav}>
               <IngredientsList
                 ingredientsList={INGREDIENT_TYPES}
                 toggleModal={toggleModal}
