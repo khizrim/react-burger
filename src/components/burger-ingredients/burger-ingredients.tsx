@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useRef, useState } from 'react';
+import { UIEventHandler, useRef, useState } from 'react';
 
 import IngredientsList from '../ingredients-list/ingredients-list';
 import IngredientDetails from '../ingredient-details/ingredient-details';
@@ -45,6 +45,18 @@ const BurgerIngredients = () => {
     setCurrentTab(value);
   };
 
+  const handleScrollNav = (e: any) => {
+    const scrollTop = e.target.offsetTop;
+
+    setCurrentTab(
+      mainRef.current.getBoundingClientRect().y <= scrollTop
+        ? 'main'
+        : sauceRef.current.getBoundingClientRect().y <= scrollTop
+        ? 'sauce'
+        : 'bun'
+    );
+  };
+
   return (
     <section className={styles.ingredients}>
       <div className={styles.container}>
@@ -58,7 +70,7 @@ const BurgerIngredients = () => {
                 <Tabs />
               </TabsContext.Provider>
             </div>
-            <ul className={styles.types}>
+            <ul className={styles.types} onScroll={handleScrollNav}>
               <IngredientsList
                 ingredientsList={INGREDIENT_TYPES}
                 toggleModal={toggleModal}
