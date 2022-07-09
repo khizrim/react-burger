@@ -16,9 +16,10 @@ const ingredientsInitialState = {
 
 export const ingredientsReducer = (
   state = ingredientsInitialState,
-  action: { type: string; ingredients: [] } = {
+  action: { type: string; ingredients: []; error: string } = {
     type: '',
-    ingredients: []
+    ingredients: [],
+    error: ''
   }
 ) => {
   switch (action.type) {
@@ -44,7 +45,8 @@ export const ingredientsReducer = (
         ...state,
         ingredientsFailed: true,
         ingredientsRequest: false,
-        isLoading: false
+        isLoading: false,
+        error: action.error
       };
     }
 

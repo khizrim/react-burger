@@ -25,15 +25,16 @@ function App() {
     <div className={styles.app}>
       <AppHeader />
       {isLoading && <LoadingSpinner />}
-      {error && (
+      {error ? (
         <div className={styles.error}>
           Что-то пошло не так. Ошибка: <span className={styles.error_text}>{error}</span>
         </div>
+      ) : (
+        <main className={styles.main}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </main>
       )}
-      <main className={styles.main}>
-        <BurgerIngredients />
-        <BurgerConstructor />
-      </main>
     </div>
   );
 }

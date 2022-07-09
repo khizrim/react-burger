@@ -1,11 +1,13 @@
-import { useContext } from 'react';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import useAppSelector from '../../hooks/use-app-selector';
 import checkIcon from '../../images/done.png';
-import OrderContext from '../../services/order-context';
 
 import styles from './order-details.module.css';
 
 const OrderDetails = () => {
-  const { order } = useContext(OrderContext);
+  const { order }: { order: { number?: number } } = useAppSelector((store) => store.orderReducer);
+
+  console.log(order);
 
   return (
     <div className={styles.order_details}>

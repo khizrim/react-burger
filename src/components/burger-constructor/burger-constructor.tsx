@@ -8,14 +8,13 @@ import OrderDetails from '../order-details/order-details';
 import Ingredient from '../ingredient/ingredient';
 import Modal from '../modal/modal';
 
-import OrderContext from '../../services/order-context';
-
-import { IngredientDataType, OrderType } from '../../utils/types';
-import { sendOrder } from '../../utils/api';
+import { IngredientDataType } from '../../utils/types';
 
 import useAppSelector from '../../hooks/use-app-selector';
 
 import styles from './burger-constructor.module.css';
+import useAppDispatch from '../../hooks/use-app-dispatch';
+import { postOrder } from '../../services/actions/order';
 
 declare module 'react' {
   interface FunctionComponent<P = {}> {
@@ -24,11 +23,12 @@ declare module 'react' {
 }
 
 const BurgerConstructor = () => {
+  const dispatch = useAppDispatch();
+
   const { ingredients }: { ingredients: IngredientDataType[] } = useAppSelector(
     (store) => store.ingredientsReducer
   );
 
-  const [orderData, setOrderData] = useState({} as OrderType);
   const [isModalOpened, setIsModalOpened] = useState(false);
 
   const data = useMemo(
@@ -50,24 +50,16 @@ const BurgerConstructor = () => {
   };
 
   const handleOrder = () => {
-    (async () => {
-      try {
-        const res = await sendOrder(ingredients);
-        console.log(res);
-        setOrderData(res);
-        toggleModal();
-      } catch (err) {
-        console.log(err);
-      }
-    })();
+    dispatch(postOrder(ingredients));
+    toggleModal();
   };
 
   return (
     <section className={styles.burger_constructor}>
       <div className={styles.container}>
-        <div className={styles.items}>
-          {ingredients.length && (
-            <>
+        {ingredients.length ? (
+          <>
+            <div className={styles.items}>
               <Ingredient key={uuidv4()} item={data.bun[0]} type={'top'} isLocked />
               <ul className={styles.list}>
                 {data.sauce.map((item) => (
@@ -78,24 +70,24 @@ const BurgerConstructor = () => {
                 ))}
               </ul>
               <Ingredient key={uuidv4()} item={data.bun[0]} type={'bottom'} isLocked />
-            </>
-          )}
-        </div>
-        <div className={styles.total}>
-          <div className={styles.sum}>
-            <span className={styles.total_text}>{total}</span>
-            <CurrencyIcon type="primary" />
-          </div>
-          <Button type="primary" size="large" onClick={handleOrder}>
-            Оформить заказ
-          </Button>
-        </div>
+            </div>
+            <div className={styles.total}>
+              <div className={styles.sum}>
+                <span className={styles.total_text}>{total}</span>
+                <CurrencyIcon type="primary" />
+              </div>
+              <Button type="primary" size="large" onClick={handleOrder}>
+                Оформить заказ
+              </Button>
+            </div>
+          </>
+        ) : (
+          ''
+        )}
       </div>
       {isModalOpened && (
         <Modal onClose={toggleModal}>
-          <OrderContext.Provider value={orderData}>
-            <OrderDetails />
-          </OrderContext.Provider>
+          <OrderDetails />
         </Modal>
       )}
     </section>

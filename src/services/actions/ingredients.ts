@@ -19,10 +19,10 @@ export function getIngredients() {
           ingredients: data
         })
       )
-      .catch(() => {
+      .catch((err) => {
         dispatch({
           type: GET_INGREDIENT_FAILED,
-          error: 'Ошибка'
+          error: `${err}`
         });
       });
   };

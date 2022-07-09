@@ -12,6 +12,7 @@ import { INGREDIENT_TYPES } from '../../utils/constants';
 import { IngredientDataType } from '../../utils/types';
 
 import styles from './burger-ingredients.module.css';
+import useAppSelector from '../../hooks/use-app-selector';
 
 declare module 'react' {
   interface FunctionComponent<P = {}> {
@@ -20,6 +21,8 @@ declare module 'react' {
 }
 
 const BurgerIngredients = () => {
+  const { isLoading } = useAppSelector((store) => store.ingredientsReducer);
+
   const [currentIngredient, setCurrentIngredient] = useState<IngredientDataType | null>(null);
   const [currentTab, setCurrentTab] = useState('bun');
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,19 +48,25 @@ const BurgerIngredients = () => {
   return (
     <section className={styles.ingredients}>
       <div className={styles.container}>
-        <h1 className={styles.title}>Соберите бургер</h1>
-        <div className={styles.tabs}>
-          <TabsContext.Provider value={{ currentTab, handleTabSwitch }}>
-            <Tabs />
-          </TabsContext.Provider>
-        </div>
-        <ul className={styles.types}>
-          <IngredientsList
-            ingredientsList={INGREDIENT_TYPES}
-            toggleModal={toggleModal}
-            ref={tabsRef}
-          />
-        </ul>
+        {isLoading ? (
+          ''
+        ) : (
+          <>
+            <h1 className={styles.title}>Соберите бургер</h1>
+            <div className={styles.tabs}>
+              <TabsContext.Provider value={{ currentTab, handleTabSwitch }}>
+                <Tabs />
+              </TabsContext.Provider>
+            </div>
+            <ul className={styles.types}>
+              <IngredientsList
+                ingredientsList={INGREDIENT_TYPES}
+                toggleModal={toggleModal}
+                ref={tabsRef}
+              />
+            </ul>
+          </>
+        )}
         {isModalOpen && currentIngredient && (
           <Modal title={'Детали ингредиентов'} onClose={toggleModal}>
             <IngredientDetails {...currentIngredient} />
