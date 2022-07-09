@@ -7,15 +7,15 @@ import styles from './ingredient.module.css';
 const Ingredient = ({
   item,
   type,
-  isLocked
+  isLocked = false
 }: {
-  item: IngredientDataType;
+  item?: IngredientDataType;
   type?: 'top' | 'bottom';
   isLocked?: boolean;
 }) => {
   const postfix = type === 'top' ? ' (верх)' : type === 'bottom' ? ' (низ)' : '';
 
-  return (
+  return item ? (
     <li className={isLocked ? styles.item_locked : styles.item}>
       {!isLocked && <DragIcon type="primary" />}
       <ConstructorElement
@@ -25,6 +25,18 @@ const Ingredient = ({
         thumbnail={item.image}
         isLocked={isLocked}
       />
+    </li>
+  ) : (
+    <li
+      className={
+        type === 'top'
+          ? styles.item_empty_top
+          : type === 'bottom'
+          ? styles.item_empty_bottom
+          : styles.item_empty
+      }
+    >
+      <span>Перенесите булку</span>
     </li>
   );
 };
