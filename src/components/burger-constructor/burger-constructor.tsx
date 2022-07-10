@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 as uuidv4 } from 'uuid';
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useDrop } from 'react-dnd';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
@@ -13,7 +13,11 @@ import { IngredientDataType } from '../../utils/types';
 
 import { postOrder } from '../../services/actions/order';
 
-import { addConstructorBun, addConstructorIngredients } from '../../services/actions/constructor';
+import {
+  addConstructorBun,
+  addConstructorIngredients,
+  moveConstructorIngredient
+} from '../../services/actions/constructor';
 
 import useAppSelector from '../../hooks/use-app-selector';
 import useAppDispatch from '../../hooks/use-app-dispatch';
@@ -48,6 +52,13 @@ const BurgerConstructor = () => {
     toggleModal();
   };
 
+  const handleMove = useCallback(
+    (dragIndex: number, hoverIndex: number) => {
+      dispatch(moveConstructorIngredient(dragIndex, hoverIndex));
+    },
+    [dispatch]
+  );
+
   const onDrop = (item: IngredientDataType) => {
     if (item.type === 'bun') {
       dispatch(addConstructorBun(item, uuidv4()));
@@ -56,7 +67,7 @@ const BurgerConstructor = () => {
     }
   };
 
-  const [, drop] = useDrop({
+  const [{ isOver }, drop] = useDrop({
     accept: 'ingredients',
     drop: (item: IngredientDataType) => {
       onDrop(item);
@@ -70,15 +81,41 @@ const BurgerConstructor = () => {
     <section className={styles.burger_constructor}>
       <div className={styles.container}>
         <div className={styles.items} ref={drop}>
-          <Ingredient item={bun} type="top" key={`${bun && bun.key}_top`} isLocked />
-          <ul className={ingredients.length ? styles.list : styles.list_empty}>
+          <Ingredient
+            item={bun}
+            type="top"
+            key={`${bun && bun.key}_top`}
+            isLocked
+            index={0}
+            onMove={handleMove}
+          />
+          <ul
+            className={
+              ingredients.length ? styles.list : isOver ? styles.list_active : styles.list_empty
+            }
+          >
             {ingredients.length ? (
-              ingredients.map((ingredient) => <Ingredient item={ingredient} key={ingredient.key} />)
+              ingredients.map((ingredient, index) => (
+                <Ingredient
+                  id={ingredient._id}
+                  item={ingredient}
+                  index={index}
+                  key={ingredient.key}
+                  onMove={handleMove}
+                />
+              ))
             ) : (
               <span>Перенесите соус или начинку</span>
             )}
           </ul>
-          <Ingredient item={bun} type="bottom" key={`${bun && bun.key}_bottom`} isLocked />
+          <Ingredient
+            item={bun}
+            type="bottom"
+            key={`${bun && bun.key}_bottom`}
+            isLocked
+            index={0}
+            onMove={handleMove}
+          />
         </div>
         <div className={styles.total}>
           <div className={styles.sum}>

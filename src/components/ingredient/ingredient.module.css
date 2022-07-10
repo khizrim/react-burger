@@ -1,7 +1,17 @@
 .item {
   display: flex;
   align-items: center;
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
   gap: 8px;
+}
+
+.item:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
 }
 
 .item_empty {

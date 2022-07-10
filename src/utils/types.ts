@@ -1,6 +1,7 @@
 import { store } from '../services/store';
 
 type IngredientDataType = {
+  index?: number;
   _id: string;
   name: string;
   type?: string;

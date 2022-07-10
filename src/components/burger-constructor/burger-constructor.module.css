@@ -41,6 +41,11 @@
   overflow: hidden;
 }
 
+.list_active {
+  composes: list_empty;
+  background-color: var(--background-element);
+}
+
 .list_empty:hover {
   padding: 0;
   overflow: hidden;
