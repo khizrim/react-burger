@@ -1,4 +1,7 @@
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
+import { removeConstructorIngredients } from '../../services/actions/constructor';
+
+import useAppDispatch from '../../hooks/use-app-dispatch';
 
 import { IngredientDataType } from '../../utils/types';
 
@@ -15,6 +18,12 @@ const Ingredient = ({
 }) => {
   const postfix = type === 'top' ? ' (верх)' : type === 'bottom' ? ' (низ)' : '';
 
+  const dispatch = useAppDispatch();
+
+  const handleRemove = (key: string) => {
+    dispatch(removeConstructorIngredients(key));
+  };
+
   return item ? (
     <li className={isLocked ? styles.item_locked : styles.item}>
       {!isLocked && <DragIcon type="primary" />}
@@ -23,6 +32,7 @@ const Ingredient = ({
         text={item.name + postfix}
         price={item.price}
         thumbnail={item.image}
+        handleClose={() => handleRemove(item.key)}
         isLocked={isLocked}
       />
     </li>

@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { v4 as uuidv4 } from 'uuid';
 import { useState } from 'react';
 import { useDrop } from 'react-dnd';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
@@ -49,13 +50,13 @@ const BurgerConstructor = () => {
 
   const onDrop = (item: IngredientDataType) => {
     if (item.type === 'bun') {
-      dispatch(addConstructorBun(item));
+      dispatch(addConstructorBun(item, uuidv4()));
     } else {
-      dispatch(addConstructorIngredients(item));
+      dispatch(addConstructorIngredients(item, uuidv4()));
     }
   };
 
-  const [{ isOver }, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: 'ingredients',
     drop: (item: IngredientDataType) => {
       onDrop(item);
@@ -69,15 +70,15 @@ const BurgerConstructor = () => {
     <section className={styles.burger_constructor}>
       <div className={styles.container}>
         <div className={styles.items} ref={drop}>
-          <Ingredient item={bun} type="top" isLocked />
+          <Ingredient item={bun} type="top" key={`${bun && bun.key}_top`} isLocked />
           <ul className={ingredients.length ? styles.list : styles.list_empty}>
             {ingredients.length ? (
-              ingredients.map((ingredient) => <Ingredient item={ingredient} />)
+              ingredients.map((ingredient) => <Ingredient item={ingredient} key={ingredient.key} />)
             ) : (
               <span>Перенесите соус или начинку</span>
             )}
           </ul>
-          <Ingredient item={bun} type="bottom" isLocked />
+          <Ingredient item={bun} type="bottom" key={`${bun && bun.key}_bottom`} isLocked />
         </div>
         <div className={styles.total}>
           <div className={styles.sum}>
