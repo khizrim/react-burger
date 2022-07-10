@@ -8,9 +8,10 @@ const constructorInitialState = {
 
 export const constructorReducer = (
   state = constructorInitialState,
-  action: { type: string; ingredient: IngredientDataType } = {
+  action: { type: string; ingredient: IngredientDataType; bun: IngredientDataType } = {
     type: '',
-    ingredient: {} as IngredientDataType
+    ingredient: {} as IngredientDataType,
+    bun: {} as IngredientDataType
   }
 ) => {
   switch (action.type) {
@@ -23,7 +24,7 @@ export const constructorReducer = (
     case ADD_CONSTRUCTOR_BUN:
       return {
         ...state,
-        bun: action.ingredient
+        bun: action.bun
       };
 
     default:

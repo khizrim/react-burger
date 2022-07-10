@@ -23,14 +23,15 @@
   flex-grow: 1;
   list-style: none;
   padding: 0;
-  margin-right: 8px;
-  width: 100%;
+  grid-auto-flow: row;
+  grid-auto-rows: 80px;
   gap: 16px;
   overflow-y: scroll;
 }
 
 .list_empty {
   composes: list;
+  composes: ml-8 mr-4 text from global;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -40,21 +41,18 @@
   overflow: hidden;
 }
 
-.list:hover {
-  margin-right: 0;
-}
-
-.list:hover::-webkit-scrollbar {
-  display: block;
-  width: 8px;
-}
-
 .list_empty:hover {
   padding: 0;
   overflow: hidden;
 }
 
 .list::-webkit-scrollbar {
+  display: none;
+  width: 0;
+}
+
+.list:hover::-webkit-scrollbar {
+  display: block;
   width: 8px;
 }
 

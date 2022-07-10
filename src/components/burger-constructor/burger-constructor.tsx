@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from 'react';
+import { useDrop } from 'react-dnd';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 
 import OrderDetails from '../order-details/order-details';
@@ -10,6 +11,8 @@ import Modal from '../modal/modal';
 import { IngredientDataType } from '../../utils/types';
 
 import { postOrder } from '../../services/actions/order';
+
+import { addConstructorBun, addConstructorIngredients } from '../../services/actions/constructor';
 
 import useAppSelector from '../../hooks/use-app-selector';
 import useAppDispatch from '../../hooks/use-app-dispatch';
@@ -44,15 +47,37 @@ const BurgerConstructor = () => {
     toggleModal();
   };
 
+  const onDrop = (item: IngredientDataType) => {
+    if (item.type === 'bun') {
+      dispatch(addConstructorBun(item));
+    } else {
+      dispatch(addConstructorIngredients(item));
+    }
+  };
+
+  const [{ isOver }, drop] = useDrop({
+    accept: 'ingredients',
+    drop: (item: IngredientDataType) => {
+      onDrop(item);
+    },
+    collect: (monitor) => ({
+      isOver: monitor.isOver()
+    })
+  });
+
   return (
     <section className={styles.burger_constructor}>
       <div className={styles.container}>
-        <div className={styles.items}>
-          <Ingredient item={bun} type="top" />
+        <div className={styles.items} ref={drop}>
+          <Ingredient item={bun} type="top" isLocked />
           <ul className={ingredients.length ? styles.list : styles.list_empty}>
-            {ingredients.length ? <></> : <span>Перенесите соус или начинку</span>}
+            {ingredients.length ? (
+              ingredients.map((ingredient) => <Ingredient item={ingredient} />)
+            ) : (
+              <span>Перенесите соус или начинку</span>
+            )}
           </ul>
-          <Ingredient item={bun} type="bottom" />
+          <Ingredient item={bun} type="bottom" isLocked />
         </div>
         <div className={styles.total}>
           <div className={styles.sum}>
