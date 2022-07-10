@@ -84,7 +84,12 @@ const BurgerConstructor = () => {
             <span className={styles.total_text}>{total}</span>
             <CurrencyIcon type="primary" />
           </div>
-          <Button type="primary" size="large" onClick={handleOrder}>
+          <Button
+            type="primary"
+            size="large"
+            onClick={handleOrder}
+            disabled={!bun || !ingredients.length}
+          >
             Оформить заказ
           </Button>
         </div>
