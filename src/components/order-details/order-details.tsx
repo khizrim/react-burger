@@ -7,8 +7,6 @@ import styles from './order-details.module.css';
 const OrderDetails = () => {
   const { order }: { order: { number?: number } } = useAppSelector((store) => store.orderReducer);
 
-  console.log(order);
-
   return (
     <div className={styles.order_details}>
       <h2 className={styles.title}>{order.number}</h2>
