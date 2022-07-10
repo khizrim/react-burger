@@ -1,6 +1,6 @@
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 
-import { IngredientData } from '../../utils/types';
+import { IngredientDataType } from '../../utils/types';
 
 import styles from './ingredient-card.module.css';
 
@@ -8,8 +8,8 @@ const IngredientCard = ({
   data,
   toggleModal
 }: {
-  data: IngredientData;
-  toggleModal: (data: IngredientData) => void;
+  data: IngredientDataType;
+  toggleModal: (data: IngredientDataType) => void;
 }) => {
   return (
     <li key={data._id} onClick={() => toggleModal(data)} className={styles.ingredient}>

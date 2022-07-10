@@ -1,15 +1,16 @@
 /* eslint-disable @typescript-eslint/ban-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 
 import IngredientsList from '../ingredients-list/ingredients-list';
 import IngredientDetails from '../ingredient-details/ingredient-details';
+import Tabs from '../tabs/tabs';
 import Modal from '../modal/modal';
 
-import { INGREDIENT_TYPES } from '../../utils/constants';
-import { IngredientData } from '../../utils/types';
+import TabsContext from '../../services/tabs-context';
 
-import Tabs from '../tabs/tabs';
+import { INGREDIENT_TYPES } from '../../utils/constants';
+import { IngredientDataType } from '../../utils/types';
 
 import styles from './burger-ingredients.module.css';
 
@@ -19,13 +20,27 @@ declare module 'react' {
   }
 }
 
-const BurgerIngredients = ({ data }: { data: IngredientData[] }) => {
-  const [currentIngredient, setCurrentIngredient] = useState<IngredientData | null>(null);
+const BurgerIngredients = () => {
+  const [currentIngredient, setCurrentIngredient] = useState<IngredientDataType | null>(null);
+  const [currentTab, setCurrentTab] = useState('bun');
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const toggleModal = (item?: IngredientData) => {
+  const bunRef = useRef<HTMLUListElement>({} as HTMLUListElement);
+  const sauceRef = useRef<HTMLUListElement>({} as HTMLUListElement);
+  const mainRef = useRef<HTMLUListElement>({} as HTMLUListElement);
+
+  const tabsRef = useRef({ bunRef, sauceRef, mainRef });
+
+  const toggleModal = (item?: IngredientDataType) => {
     setIsModalOpen(!isModalOpen);
     setCurrentIngredient(item ? { ...item } : null);
+  };
+
+  const handleTabSwitch = (value: string) => {
+    (value === 'bun' ? bunRef : value === 'sauce' ? sauceRef : mainRef).current.scrollIntoView({
+      behavior: 'smooth'
+    });
+    setCurrentTab(value);
   };
 
   return (
@@ -33,13 +48,15 @@ const BurgerIngredients = ({ data }: { data: IngredientData[] }) => {
       <div className={styles.container}>
         <h1 className={styles.title}>Соберите бургер</h1>
         <div className={styles.tabs}>
-          <Tabs tabsList={INGREDIENT_TYPES} />
+          <TabsContext.Provider value={{ currentTab, handleTabSwitch }}>
+            <Tabs />
+          </TabsContext.Provider>
         </div>
         <ul className={styles.types}>
           <IngredientsList
             ingredientsList={INGREDIENT_TYPES}
-            data={data}
             toggleModal={toggleModal}
+            ref={tabsRef}
           />
         </ul>
         {isModalOpen && currentIngredient && (
