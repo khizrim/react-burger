@@ -43,7 +43,7 @@ const BurgerConstructor = () => {
   };
 
   const handleOrder = () => {
-    dispatch(postOrder(ingredients));
+    dispatch(postOrder([bun, ...ingredients]));
     toggleModal();
   };
 
