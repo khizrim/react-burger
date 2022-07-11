@@ -1,10 +1,11 @@
-import { forwardRef, useContext } from 'react';
+import { forwardRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import IngredientCard from '../ingredient-card/ingredient-card';
 
-import IngredientsContext from '../../services/ingredients-context';
 import { IngredientDataType, IngredientType } from '../../utils/types';
+
+import useAppSelector from '../../hooks/use-app-selector';
 
 import styles from './ingredients-list.module.css';
 
@@ -20,7 +21,10 @@ const IngredientsList = forwardRef(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     ref: any
   ) => {
-    const ingredients = useContext(IngredientsContext);
+    const { ingredients }: { ingredients: IngredientDataType[] } = useAppSelector(
+      (store) => store.ingredientsReducer
+    );
+
     const { bunRef, sauceRef, mainRef } = ref.current;
 
     return (

@@ -1,7 +1,38 @@
 .item {
   display: flex;
   align-items: center;
+  cursor: move;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
   gap: 8px;
+}
+
+.item:active {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+
+.item_empty {
+  composes: item;
+  composes: ml-8 mr-4 text text_type_main-default from global;
+  box-sizing: border-box;
+  justify-content: center;
+  min-height: 80px;
+  border-radius: var(--common-border-radius-s);
+  border: 2px dashed var(--background-element);
+  color: var(--text-inactive-color);
+}
+
+.item_empty_top {
+  composes: item_empty;
+  border-radius: var(--top-constructor-item-border-radius);
+}
+
+.item_empty_bottom {
+  composes: item_empty;
+  border-radius: var(--bottom-constructor-item-border-radius);
 }
 
 .item_locked {

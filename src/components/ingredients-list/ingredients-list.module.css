@@ -1,9 +1,9 @@
 .type {
-  composes: pt-10 from global;
+  composes: mb-10 from global;
 }
 
-.type:first-child {
-  padding: 0;
+.type:last-child {
+  margin: 0;
 }
 
 .type_name {
