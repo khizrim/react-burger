@@ -7,12 +7,11 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import Tabs from '../tabs/tabs';
 import Modal from '../modal/modal';
 
-import TabsContext from '../../services/tabs-context';
 import { INGREDIENT_TYPES } from '../../utils/constants';
 import { IngredientDataType } from '../../utils/types';
+import useAppSelector from '../../hooks/use-app-selector';
 
 import styles from './burger-ingredients.module.css';
-import useAppSelector from '../../hooks/use-app-selector';
 
 declare module 'react' {
   interface FunctionComponent<P = {}> {
@@ -68,9 +67,7 @@ const BurgerIngredients = () => {
           <>
             <h1 className={styles.title}>Соберите бургер</h1>
             <div className={styles.tabs}>
-              <TabsContext.Provider value={{ currentTab, handleTabSwitch }}>
-                <Tabs />
-              </TabsContext.Provider>
+              <Tabs current={currentTab} onSwitch={handleTabSwitch} />
             </div>
             <ul className={styles.types} ref={scrollRef} onScroll={handleScrollNav}>
               <IngredientsList
