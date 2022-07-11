@@ -3,7 +3,8 @@ import {
   ADD_CONSTRUCTOR_BUN,
   ADD_CONSTRUCTOR_INGREDIENTS,
   MOVE_CONSTRUCTOR_INGREDIENT,
-  REMOVE_CONSTRUCTOR_INGREDIENT
+  REMOVE_CONSTRUCTOR_INGREDIENT,
+  RESET_CONSTRUCTOR
 } from '../actions/constructor';
 
 const constructorInitialState = {
@@ -62,6 +63,13 @@ export const constructorReducer = (
         ingredients: [...state.ingredients].filter(
           (item: IngredientDataType) => item.key !== action.key
         )
+      };
+
+    case RESET_CONSTRUCTOR:
+      return {
+        ...state,
+        ingredients: [],
+        bun: null
       };
 
     default:

@@ -1,6 +1,7 @@
 import type { Dispatch } from 'redux';
 import { API_URL } from '../../utils/constants';
 import { IngredientDataType } from '../../utils/types';
+import { resetConstructor } from './constructor';
 
 export const POST_ORDER_REQUEST = 'POST_ORDER_REQUEST';
 export const POST_ORDER_SUCCESS = 'POST_ORDER_SUCCESS';
@@ -28,6 +29,9 @@ export function postOrder(ingredients: IngredientDataType[]) {
           order: data
         })
       )
+      .then(() => {
+        dispatch(resetConstructor());
+      })
       .catch((err) => {
         dispatch({
           type: POST_ORDER_FAILURE,

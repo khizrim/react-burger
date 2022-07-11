@@ -4,6 +4,7 @@ export const ADD_CONSTRUCTOR_INGREDIENTS = 'ADD_CONSTRUCTOR_INGREDIENTS';
 export const ADD_CONSTRUCTOR_BUN = 'ADD_CONSTRUCTOR_BUN';
 export const MOVE_CONSTRUCTOR_INGREDIENT = 'MOVE_CONSTRUCTOR_INGREDIENT';
 export const REMOVE_CONSTRUCTOR_INGREDIENT = 'REMOVE_CONSTRUCTOR_INGREDIENT';
+export const RESET_CONSTRUCTOR = 'RESET_CONSTRUCTOR';
 
 export function addConstructorIngredients(ingredient: IngredientDataType, key: string) {
   return {
@@ -31,5 +32,11 @@ export function removeConstructorIngredients(key: string) {
   return {
     type: REMOVE_CONSTRUCTOR_INGREDIENT,
     key
+  };
+}
+
+export function resetConstructor() {
+  return {
+    type: RESET_CONSTRUCTOR
   };
 }
