@@ -1,5 +1,6 @@
 import { CurrencyIcon, Counter } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from 'react-dnd';
+import useAppSelector from '../../hooks/use-app-selector';
 
 import { IngredientDataType } from '../../utils/types';
 
@@ -20,6 +21,16 @@ const IngredientCard = ({
     })
   });
 
+  const { ingredients, bun }: { ingredients: IngredientDataType[]; bun: IngredientDataType } =
+    useAppSelector((store) => store.constructorReducer);
+
+  const ingredientsCount =
+    data && data.type === 'bun'
+      ? bun && bun._id === data._id
+        ? 1
+        : 0
+      : ingredients.filter((ingredient) => ingredient._id === data._id).length;
+
   return (
     <li key={data._id} ref={drag} onClick={() => toggleModal(data)} className={styles.ingredient}>
       <img src={data.image} alt={data.name} />
@@ -28,7 +39,7 @@ const IngredientCard = ({
         <CurrencyIcon type="primary" />
       </div>
       <h3 className={styles.name}>{data.name}</h3>
-      <Counter count={1} size="default" />
+      {ingredientsCount > 0 && <Counter count={ingredientsCount} size="default" />}{' '}
     </li>
   );
 };
